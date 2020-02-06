@@ -6,15 +6,19 @@ namespace Lab13
 {
     class Rocky : Player
     {
-        public Rocky(string name)
+        public Rocky()
         {
-            this.Name = name;
+            this.Name = "Rocky";
             this.Action = Roshambo.rock;
         }
 
-        protected override Roshambo generateRoshambo()
+        public override Roshambo GenerateRoshambo()
         {
             return Roshambo.rock;
+        }
+        public override string ToString()
+        {
+            return "My name is " + base.Name + " and my move is " + base.Action + ".";
         }
     }
 }

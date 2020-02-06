@@ -4,24 +4,22 @@ using System.Text;
 
 namespace Lab13
 {
-    class Player
+    public enum Roshambo
     {
-        private string name;
-        private Roshambo action;
+        rock,
+        paper,
+        scissors
+    }
+    abstract class Player
+    {
 
-        public string Name;
-        public Roshambo Action;
+        public string Name { get; set; }
+        public Roshambo Action { get; set; }
 
-        public Player(string name, Roshambo action)
+        public Player()
         {
-            this.Name = name;
-            this.Action = action;
         }
 
-        protected virtual Roshambo generateRoshambo()
-        {
-            Roshambo move = Roshambo.rock;
-            return move;
-        }
+        public abstract Roshambo GenerateRoshambo();
     }
 }
