@@ -16,18 +16,8 @@ namespace Lab13
         {
             Random rng = new Random();
             int index = rng.Next(0, 3);
-            if (index == 0)
-            {
-                return Roshambo.rock;
-            }
-            else if (index == 1)
-            {
-                return Roshambo.paper;
-            }
-            else
-            {
-                return Roshambo.scissors;
-            }
+            Roshambo output = (Roshambo)index;
+            return output;
         }
 
         public override string ToString()
