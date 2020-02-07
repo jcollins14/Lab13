@@ -7,23 +7,22 @@ namespace Lab13
         Player User { get; set; }
         Player Opponent { get; set; }
         private bool Loop;
-        private int Wins;
-        private int Losses;
-        private int Draws;
+        private double Wins;
+        private double Losses;
+        private double Draws;
 
         public RoshamboApp()
         {
-            Draws = 0;
-            Losses = 0;
-            Wins = 0;
             Loop = true;
         }
 
         public void Play()
         {
-            Console.WriteLine("Welcome to Rocky Balboa's Punch Out. Please enter your name");
+            Console.WriteLine("Welcome to Rocky Balboa's Punch Out. Please enter your name.");
+            Console.WriteLine("(Hint: Enter \"Rocky\" or \"Creed\" for a surprise...)");
             string name = Console.ReadLine().Trim();
 
+            //Runs the automated version if the user inputs rocky or creed as a name.
             User = new User(name);
             if (User.Name.ToLower() == "rocky" || User.Name.ToLower() == "creed")
             {
@@ -32,6 +31,7 @@ namespace Lab13
 
             while (Loop)
             {
+                //Data validation for selecting an opponent
                 Console.WriteLine("Who would you like to fight? Rocky or Creed?");
                 string response = "error";
                 while (response == "error")
@@ -55,11 +55,13 @@ namespace Lab13
 
                 Console.WriteLine("You will be fighting " + Opponent.Name + ".");
 
+                //Has the user pick an action.
                 User.Action = User.GenerateRoshambo();
 
                 Console.WriteLine("Fighter 1: " + User.Name + ". Move: " + User.Action + ".");
                 Console.WriteLine("Fighter 2: " + Opponent.Name + ". Move: " + Opponent.Action + ".");
 
+                //Calculates the outcome for the user against the opponent selected.
                 string outcome = Clash(User, Opponent);
                 if (outcome == "draw")
                 {
@@ -81,6 +83,7 @@ namespace Lab13
 
                 Console.WriteLine("Would you like to fight again? (yes/no)");
 
+                //Data validation for loop response
                 response = "error";
                 while (response == "error")
                 {
@@ -99,6 +102,7 @@ namespace Lab13
                 Console.Clear();
             }
 
+            //Displays final record and says goodbye upon exit
             Console.WriteLine("Your final record was: " + Wins + " Wins, " + Losses + " Losses, " + Draws + " Draws.");
             Console.WriteLine("Thanks for fighting, " + User.Name + "!");
             Environment.Exit(1);
@@ -106,6 +110,7 @@ namespace Lab13
 
         public string Clash(Player user, Player opponent)
         {
+            //Measures user action vs opponent action. Returns string of result
             if (user.Action == Roshambo.rock)
             {
                 if (opponent.Action == Roshambo.rock)
@@ -156,18 +161,19 @@ namespace Lab13
 
         public void RoshamboAutomate()
         {
+            //Allows user to pit Rocky and Creed against each other.
             Rocky rocky = new Rocky();
             RandomOpponent creed = new RandomOpponent("Creed");
             
             Console.WriteLine("How many fights would you like to simulate?");
             string response = "error";
-            int fights = 0;
+            double fights = 0;
             while (response == "error")
             {
                 response = Console.ReadLine();
                 try
                 {
-                    fights = int.Parse(response);
+                    fights = double.Parse(response);
                 }
                 catch (FormatException)
                 {
@@ -196,6 +202,7 @@ namespace Lab13
                 creed.Action = creed.GenerateRoshambo();
             }
 
+            //Exits application once simulation is complete
             Console.WriteLine("Simulation Complete.");
             Console.WriteLine("Rocky's final record vs Creed was: " + Wins + " Wins, " + Losses + " Losses, " + Draws + " Draws.");
             Console.WriteLine("Thanks for fighting!");
